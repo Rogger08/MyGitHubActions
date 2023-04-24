@@ -1,0 +1,31 @@
+name: Super-Linter
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths-ignore:
+      - '**/README.md'
+      - '**/*.md'
+  pull_request:
+    branches:
+      - main
+      - master
+    paths-ignore:
+      - '**/README.md'
+      - '**/*.md'
+
+jobs:
+  super-linter:
+    name: Lint code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Super-Linter
+        uses: github/super-linter@v5.1.0
+        env:
+          VALIDATE_ALL_CODEBASE: true
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
